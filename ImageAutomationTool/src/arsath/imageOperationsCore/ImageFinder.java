@@ -61,15 +61,15 @@ public class ImageFinder {
 				// System.out.println(xScreen + " " + yScreen);
 				Color desktop = new Color(screenImage.getRGB(xScreen + xInput, yScreen + yInput));
 				Color input = new Color(inputImage.getRGB(xInput, yInput));
-				if (Math.abs(desktop.getBlue() - input.getBlue()) > 10) {
+				if (Math.abs(desktop.getBlue() - input.getBlue()) > Settings.colorSensitivityFactor) {
 
 					return false;
 				}
-				if (Math.abs(desktop.getRed() - input.getRed()) > 10) {
+				if (Math.abs(desktop.getRed() - input.getRed()) > Settings.colorSensitivityFactor) {
 
 					return false;
 				}
-				if (Math.abs(desktop.getGreen() - input.getGreen()) > 10) {
+				if (Math.abs(desktop.getGreen() - input.getGreen()) > Settings.colorSensitivityFactor) {
 
 					return false;
 				}
