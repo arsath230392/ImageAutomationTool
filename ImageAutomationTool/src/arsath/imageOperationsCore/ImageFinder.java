@@ -24,6 +24,7 @@ public class ImageFinder {
 		Robot rbt = new Robot();
 
 		inputImage = ImageIO.read(new File(inputImagePath));
+		screenImage = rbt.createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
 		Boolean matched = false;
 		int x = 0;
 		int y = 0;
@@ -31,21 +32,18 @@ public class ImageFinder {
 				- inputImage.getWidth(); xScreen++) {
 			for (int yScreen = 0; yScreen < Toolkit.getDefaultToolkit().getScreenSize().getHeight()
 					- inputImage.getHeight(); yScreen++) {
-				screenImage = rbt.createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
 				if (match(xScreen, yScreen)) {
 					matched = true;
-
 					x = xScreen;
 					y = yScreen;
 					xScreen = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 					break;
-
 				}
 			}
 
 		}
 		if (matched) {
-			new Dimension(x + (inputImage.getWidth()) / 2, y + (inputImage.getHeight()) / 2);
+			return new Dimension(x + (inputImage.getWidth()) / 2, y + (inputImage.getHeight()) / 2);
 		}
 		return null;
 
