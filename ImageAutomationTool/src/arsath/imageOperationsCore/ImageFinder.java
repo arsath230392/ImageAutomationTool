@@ -1,6 +1,8 @@
 package arsath.imageOperationsCore;
+
 import java.awt.AWTException;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
@@ -11,13 +13,17 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class ImageFinder {
-	static BufferedImage inputImage;
-	static BufferedImage bf;
+	private static BufferedImage inputImage;
+	private static BufferedImage screenImage;
 
-	public static void main(String[] args) throws AWTException, IOException {
+	/**
+	 * This is a core image finder code which finds the sub image from current
+	 * screen view
+	 */
+	public static Dimension getSubImageLocation(String inputImagePath) throws AWTException, IOException {
 		Robot rbt = new Robot();
-		bf = rbt.createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
-		inputImage = ImageIO.read(new File("E:\\workspace\\ImageReading\\Sample image\\Capture.PNG"));
+
+		inputImage = ImageIO.read(new File(inputImagePath));
 		Boolean matched = false;
 		int x = 0;
 		int y = 0;
@@ -25,7 +31,7 @@ public class ImageFinder {
 				- inputImage.getWidth(); xScreen++) {
 			for (int yScreen = 0; yScreen < Toolkit.getDefaultToolkit().getScreenSize().getHeight()
 					- inputImage.getHeight(); yScreen++) {
-
+				screenImage = rbt.createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
 				if (match(xScreen, yScreen)) {
 					matched = true;
 
@@ -39,17 +45,23 @@ public class ImageFinder {
 
 		}
 		if (matched) {
-			rbt.mouseMove(x + (inputImage.getWidth()) / 2, y + (inputImage.getHeight()) / 2);
+			new Dimension(x + (inputImage.getWidth()) / 2, y + (inputImage.getHeight()) / 2);
 		}
-		System.out.println(matched);
+		return null;
+
 	}
 
+	/**
+	 * This is the method that will compare the pixels from the input image to
+	 * the screen image. The sensitivity of the color is adjusted to an error
+	 * factor of (10/256) for RED,GREEN and BLUE
+	 */
 	private static boolean match(int xScreen, int yScreen) {
 
 		for (int xInput = 0; xInput < inputImage.getWidth(); xInput++) {
 			for (int yInput = 0; yInput < inputImage.getHeight(); yInput++) {
 				// System.out.println(xScreen + " " + yScreen);
-				Color desktop = new Color(bf.getRGB(xScreen + xInput, yScreen + yInput));
+				Color desktop = new Color(screenImage.getRGB(xScreen + xInput, yScreen + yInput));
 				Color input = new Color(inputImage.getRGB(xInput, yInput));
 				if (Math.abs(desktop.getBlue() - input.getBlue()) > 10) {
 
