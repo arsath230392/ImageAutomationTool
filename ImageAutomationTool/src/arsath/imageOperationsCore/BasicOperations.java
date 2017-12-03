@@ -20,6 +20,22 @@ public class BasicOperations {
 			throws Exception {
 		performAction(inputFilePath, maxTimeoutInSeconds, "send", offsetX, offsetY, text);
 	}
+	public static void sendControlKey(String inputFilePath, int maxTimeoutInSeconds, int offsetX, int offsetY, int key)
+			throws Exception {
+		performAction(inputFilePath, maxTimeoutInSeconds, "hover", offsetX, offsetY, "");
+	}
+
+	public static void sendComboKeys(String inputFilePath, int maxTimeoutInSeconds, int offsetX, int offsetY, int key1,
+			int key2) throws Exception {
+		performAction(inputFilePath, maxTimeoutInSeconds, "click", offsetX, offsetY, "");
+		Robot rbt = new Robot();
+		rbt.keyPress(key1);
+		rbt.keyPress(key2);
+		Thread.sleep(500);
+		rbt.keyRelease(key1);
+		rbt.keyRelease(key2);
+
+	}
 
 	private static void performAction(String inputFilePath, int maxTimeoutInSeconds, String action, int offsetX,
 			int offsetY, String text) throws Exception {
