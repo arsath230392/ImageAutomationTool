@@ -19,6 +19,6 @@ public class BasicOperations {
 				return;
 			}
 		} while (currentTimeInMillis < maxTimeout);
-		throw new ImageNotFoundException("Image not found in Screen");
+		throw new ImageNotFoundException("Image '" + inputFilePath + "'not found in Screen.Wait Time:" + maxTimeoutInSeconds);
 	}
 }
