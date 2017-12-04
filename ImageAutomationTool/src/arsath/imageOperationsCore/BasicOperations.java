@@ -4,48 +4,102 @@ import java.awt.AWTException;
 import java.awt.Dimension;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 
 public class BasicOperations {
-
+	/**
+	 * clicks on the image on the screen which matches with the input image
+	 * 
+	 * @parameters <b>inputFilePath:</b> the image path of the input file.<br>
+	 *             <b>maxTimeoutInSeconds:</b> max threshold time the function
+	 *             will wait for the image to occur <br>
+	 *             <b>offsetX:</b> +ve value moves the mouse to the right and
+	 *             -ve value moves to the left of the target image<br>
+	 *             <b>offsetY:</b> +ve value moves the mouse down and -ve value
+	 *             moves the mouse of the target image
+	 * 
+	 */
 	public static void performClick(String inputFilePath, int maxTimeoutInSeconds, int offsetX, int offsetY)
 			throws Exception {
 		performAction(inputFilePath, maxTimeoutInSeconds, "click", offsetX, offsetY, "");
 	}
 
+	/**
+	 * Hovers on the image on the screen which matches with the input image
+	 * 
+	 * @parameters <b>inputFilePath:</b> the image path of the input file.<br>
+	 *             <b>maxTimeoutInSeconds:</b> max threshold time the function
+	 *             will wait for the image to occur <br>
+	 *             <b>offsetX:</b> +ve value moves the mouse to the right and
+	 *             -ve value moves to the left of the target image<br>
+	 *             <b>offsetY:</b> +ve value moves the mouse down and -ve value
+	 *             moves the mouse of the target image
+	 */
 	public static void performHover(String inputFilePath, int maxTimeoutInSeconds, int offsetX, int offsetY)
 			throws Exception {
 		performAction(inputFilePath, maxTimeoutInSeconds, "hover", offsetX, offsetY, "");
 	}
 
+	/**
+	 * Clicks and enters text on the target image
+	 * 
+	 * @parameters <b>inputFilePath:</b> the image path of the input file.<br>
+	 *             <b>maxTimeoutInSeconds:</b> max threshold time the function
+	 *             will wait for the image to occur <br>
+	 *             <b>offsetX:</b> +ve value moves the mouse to the right and
+	 *             -ve value moves to the left of the target image<br>
+	 *             <b>offsetY:</b> +ve value moves the mouse down and -ve value
+	 *             moves the mouse of the target image<br>
+	 *             <b>text:</b> the text to be entered
+	 */
 	public static void sendKeys(String inputFilePath, int maxTimeoutInSeconds, int offsetX, int offsetY, String text)
 			throws Exception {
 		performAction(inputFilePath, maxTimeoutInSeconds, "send", offsetX, offsetY, text);
 	}
 
-	public static void sendControlKey(String inputFilePath, int maxTimeoutInSeconds, int offsetX, int offsetY, int key)
-			throws Exception {
-		performAction(inputFilePath, maxTimeoutInSeconds, "hover", offsetX, offsetY, "");
+	/**
+	 * Sends control keys like backspace, enter, alt .. etc
+	 * 
+	 * @parameters <b>key:</b> the key to be entered. use
+	 *             'java.awt.event.KeyEvent' class.
+	 */
+	public static void sendControlKey(KeyEvent key) throws Exception {
+		Robot rbt = new Robot();
+		rbt.keyPress(key.getKeyCode());
 	}
 
+	/**
+	 * Checks if the image is present in the screen currently
+	 * 
+	 * <b>inputFilePath:</b> the image path of the input file.<br>
+	 * <b>maxTimeoutInSeconds:</b> max threshold time the function will wait for
+	 * the image to occur <br>
+	 */
 	public static boolean isImagePresent(String inputFilePath, int maxTimeoutInSeconds) {
 
 		try {
-			performAction(inputFilePath, maxTimeoutInSeconds, "", 0, 0, "");
+			performAction(inputFilePath, maxTimeoutInSeconds, "hover", 0, 0, "");
 			return true;
 		} catch (Exception e) {
 			return false;
 		}
 	}
 
-	public static void sendComboKeys(String inputFilePath, int maxTimeoutInSeconds, int offsetX, int offsetY, int key1,
-			int key2) throws Exception {
-		performAction(inputFilePath, maxTimeoutInSeconds, "hover", offsetX, offsetY, "");
+	/**
+	 * Sends control keys like backspace, enter, alt .. etc
+	 * 
+	 * @parameters <b>key 1:</b> first combination. use
+	 *             'java.awt.event.KeyEvent' class.<br>
+	 *             <b>key 2:</b> Second combination. use
+	 *             'java.awt.event.KeyEvent' class.
+	 */
+	public static void sendComboKeys(KeyEvent key1, KeyEvent key2) throws Exception {
 		Robot rbt = new Robot();
-		rbt.keyPress(key1);
-		rbt.keyPress(key2);
+		rbt.keyPress(key1.getKeyCode());
+		rbt.keyPress(key2.getKeyCode());
 		Thread.sleep(500);
-		rbt.keyRelease(key1);
-		rbt.keyRelease(key2);
+		rbt.keyRelease(key1.getKeyCode());
+		rbt.keyRelease(key2.getKeyCode());
 
 	}
 
