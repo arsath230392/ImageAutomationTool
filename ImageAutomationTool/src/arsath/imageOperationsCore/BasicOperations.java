@@ -2,8 +2,13 @@ package arsath.imageOperationsCore;
 
 import java.awt.AWTException;
 import java.awt.Dimension;
+import java.awt.HeadlessException;
 import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.InputEvent;
+import java.io.IOException;
 
 public class BasicOperations {
 	/**
@@ -100,6 +105,24 @@ public class BasicOperations {
 		rbt.keyRelease(key1);
 		rbt.keyRelease(key2);
 
+	}
+
+	/**
+	 * This method gets the current clipboard content. You can press 'ctrl+A'
+	 * and 'ctrl+C'. This will push the content of the text box to system
+	 * clipboard
+	 */
+	public static String getClipboardContent() {
+		try {
+			return (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
+		} catch (HeadlessException e) {
+			e.printStackTrace();
+		} catch (UnsupportedFlavorException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "";
 	}
 
 	private static void performAction(String inputFilePath, int maxTimeoutInSeconds, String action, int offsetX,
