@@ -1,6 +1,7 @@
 package arsath.imageOperationsCore;
 
 import java.awt.AWTException;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.Robot;
@@ -60,12 +61,26 @@ public class ImageFinder {
 	 * the screen image.
 	 */
 	private static boolean match(int xScreen, int yScreen) {
-
+		Color inputImageColor;
+		Color screenImageColor;
 		for (xInput = 0; xInput < inputImage.getWidth(); xInput++) {
 			for (yInput = 0; yInput < inputImage.getHeight(); yInput++) {
-				if (screenImage.getRGB(xScreen + xInput, yScreen + yInput) != inputImage.getRGB(xInput, yInput)) {
+				screenImageColor = new Color(screenImage.getRGB(xScreen + xInput, yScreen + yInput));
+				inputImageColor = new Color(inputImage.getRGB(xInput, yInput));
+				if (screenImageColor.getRed() != inputImageColor.getRed()) {
 					return false;
 				}
+				if (screenImageColor.getBlue() != inputImageColor.getBlue()) {
+					return false;
+				}
+				if (screenImageColor.getAlpha() != inputImageColor.getAlpha()) {
+					return false;
+				}
+
+				if (screenImageColor.getGreen() != inputImageColor.getGreen()) {
+					return false;
+				}
+
 			}
 		}
 		return true;

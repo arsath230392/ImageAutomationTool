@@ -11,6 +11,6 @@ public class App {
 	}
 
 	public void closeApp() {
-		prcs.destroy();
+		prcs.destroyForcibly();
 	}
 }

@@ -4,7 +4,6 @@ import java.awt.AWTException;
 import java.awt.Dimension;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
 
 public class BasicOperations {
 	/**
@@ -63,9 +62,9 @@ public class BasicOperations {
 	 * @parameters <b>key:</b> the key to be entered. use
 	 *             'java.awt.event.KeyEvent' class.
 	 */
-	public static void sendControlKey(KeyEvent key) throws Exception {
+	public static void sendControlKey(int key) throws Exception {
 		Robot rbt = new Robot();
-		rbt.keyPress(key.getKeyCode());
+		rbt.keyPress(key);
 	}
 
 	/**
@@ -93,13 +92,13 @@ public class BasicOperations {
 	 *             <b>key 2:</b> Second combination. use
 	 *             'java.awt.event.KeyEvent' class.
 	 */
-	public static void sendComboKeys(KeyEvent key1, KeyEvent key2) throws Exception {
+	public static void sendComboKeys(int key1, int key2) throws Exception {
 		Robot rbt = new Robot();
-		rbt.keyPress(key1.getKeyCode());
-		rbt.keyPress(key2.getKeyCode());
+		rbt.keyPress(key1);
+		rbt.keyPress(key2);
 		Thread.sleep(500);
-		rbt.keyRelease(key1.getKeyCode());
-		rbt.keyRelease(key2.getKeyCode());
+		rbt.keyRelease(key1);
+		rbt.keyRelease(key2);
 
 	}
 
