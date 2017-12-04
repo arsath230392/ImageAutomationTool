@@ -16,7 +16,10 @@ public class Test {
 			String imageFolderPath = System.getProperty("user.dir") + "//Sample image//";
 			BasicOperations.sendKeys(imageFolderPath + "searchtxtbox.PNG", 10, 0, 0, "wiki");
 			BasicOperations.sendControlKey(KeyEvent.VK_ENTER);
-			BasicOperations.performClick(imageFolderPath + "wiki.PNG", 10, -20, -20);
+			BasicOperations.performClick(imageFolderPath + "wiki.PNG", 10, -50, -20);
+			BasicOperations.sendKeys(imageFolderPath + "wikisearch.PNG", 10, -100, 0, "cats");
+			BasicOperations.sendControlKey(KeyEvent.VK_ENTER);
+			Thread.sleep(10000);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
