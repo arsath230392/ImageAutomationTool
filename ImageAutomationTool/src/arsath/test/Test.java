@@ -13,6 +13,7 @@ public class Test {
 			String imageFolderPath = System.getProperty("user.dir") + "//Sample image//";
 			System.out.println(BasicOperations.getClipboardContent());
 			System.out.println(BasicOperations.isImagePresent(imageFolderPath + "searchtxtbox.PNG", 30));
+			BasicOperations.performHover(imageFolderPath + "searchtxtbox.PNG", 10, 0, 0);
 			BasicOperations.sendKeys(imageFolderPath + "searchtxtbox.PNG", 10, 0, 0, "wiki");
 			BasicOperations.sendControlKey(KeyEvent.VK_ENTER);
 			BasicOperations.performClick(imageFolderPath + "wiki.PNG", 10, -50, -20);

@@ -128,6 +128,8 @@ public class BasicOperations {
 	private static void performAction(String inputFilePath, int maxTimeoutInSeconds, String action, int offsetX,
 			int offsetY, String text) throws Exception {
 		Robot rbt = new Robot();
+		rbt.mouseMove(Toolkit.getDefaultToolkit().getScreenSize().width,
+				Toolkit.getDefaultToolkit().getScreenSize().height);
 		long currentTimeInMillis = System.currentTimeMillis();
 		long maxTimeout = currentTimeInMillis + (maxTimeoutInSeconds * 1000);
 		do {
