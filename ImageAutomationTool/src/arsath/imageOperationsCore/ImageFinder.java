@@ -58,13 +58,15 @@ public class ImageFinder {
 
 	/**
 	 * This is the method that will compare the pixels from the input image to
-	 * the screen image.
+	 * the screen image. 5% of the pixels in equal interval from the input image
+	 * will be compared against the current screen to find the best match.
 	 */
 	private static boolean match(int xScreen, int yScreen) {
 		Color inputImageColor;
 		Color screenImageColor;
-		for (xInput = 0; xInput < inputImage.getWidth(); xInput++) {
-			for (yInput = 0; yInput < inputImage.getHeight(); yInput++) {
+		for (xInput = 0; xInput < inputImage.getWidth(); xInput = xInput + ((int) (0.05 * inputImage.getWidth()))) {
+			for (yInput = 0; yInput < inputImage.getHeight(); yInput = yInput
+					+ ((int) (0.05 * inputImage.getWidth()))) {
 				screenImageColor = new Color(screenImage.getRGB(xScreen + xInput, yScreen + yInput));
 				inputImageColor = new Color(inputImage.getRGB(xInput, yInput));
 				if (screenImageColor.getRed() != inputImageColor.getRed()) {
