@@ -146,6 +146,7 @@ public class BasicOperations {
 					rbt.mouseMove(targetX, targetY);
 					return;
 				} else if (action.equals("send")) {
+					Thread.sleep(100);
 					rbt.mouseMove(targetX, targetY);
 					rbt.mousePress(InputEvent.BUTTON1_DOWN_MASK);
 					rbt.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
