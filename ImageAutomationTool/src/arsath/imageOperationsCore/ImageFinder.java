@@ -24,7 +24,7 @@ public class ImageFinder {
 	static int yScreen;
 	static Boolean matched;
 
-	public static Dimension getSubImageLocation(String inputImagePath) throws AWTException, IOException {
+	static Dimension getSubImageLocation(String inputImagePath) throws AWTException, IOException {
 		Robot rbt = new Robot();
 
 		inputImage = ImageIO.read(new File(inputImagePath));
