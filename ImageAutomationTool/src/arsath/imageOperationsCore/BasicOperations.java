@@ -1,13 +1,14 @@
 package arsath.imageOperationsCore;
 
-import java.awt.AWTException;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 public class BasicOperations {
@@ -70,6 +71,8 @@ public class BasicOperations {
 	public static void sendControlKey(int key) throws Exception {
 		Robot rbt = new Robot();
 		rbt.keyPress(key);
+		Thread.sleep(500);
+		rbt.keyRelease(key);
 	}
 
 	/**
@@ -150,7 +153,10 @@ public class BasicOperations {
 					rbt.mouseMove(targetX, targetY);
 					rbt.mousePress(InputEvent.BUTTON1_DOWN_MASK);
 					rbt.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-					type(text);
+					Thread.sleep(100);
+					Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(text),
+							new StringSelection(text));
+					sendComboKeys(KeyEvent.VK_CONTROL, KeyEvent.VK_V);
 					return;
 				}
 
@@ -160,17 +166,4 @@ public class BasicOperations {
 				"Image '" + inputFilePath + "'not found in Screen.Wait Time:" + maxTimeoutInSeconds);
 	}
 
-	private static void type(String text) throws AWTException {
-		Robot rbt = new Robot();
-		byte[] bytes = text.getBytes();
-		for (byte b : bytes) {
-			int code = b;
-			if (code > 96 && code < 123)
-				code = code - 32;
-			rbt.delay(40);
-			rbt.keyPress(code);
-			rbt.keyRelease(code);
-		}
-
-	}
 }
